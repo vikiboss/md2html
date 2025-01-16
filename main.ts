@@ -145,7 +145,7 @@ Deno.serve({ hostname: 'localhost', port: 3010 }, async (request: Request) => {
   }
 
   if (url.pathname === '/preview') return responseMarkdown('./preview.md')
-  if (!request.body) return responseMarkdown('./README.md')
+  if (!request.body) return responseMarkdown('./readme.md')
 
   return new Response(await md2html(await request.text(), options), { headers: { 'Content-Type': 'text/html' } })
 })
