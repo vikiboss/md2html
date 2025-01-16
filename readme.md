@@ -1,6 +1,8 @@
 # md2html
 
-A service that converts Markdown to beautiful HTML. Support full-featured syntax, including:
+A service that converts Markdown to beautiful HTML. Support full-featured syntax。See the [Render Preview](https://md-to-html.deno.dev/preview).
+
+## Features
 
 - [GitHub Flavored Markdown](https://github.github.com/gfm/) (GFM) 
   - Emoji Transform: `:smile:` -> 😄
@@ -35,7 +37,7 @@ A service that converts Markdown to beautiful HTML. Support full-featured syntax
 
 ## Render Preview
 
-Click here to see the [Render Preview](https://md2html.vercel.app/) of this readme.
+See the [Render Preview](https://md-to-html.deno.dev/preview).
 
 ## License
 
