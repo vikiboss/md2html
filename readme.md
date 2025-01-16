@@ -2,6 +2,15 @@
 
 A service that converts Markdown to beautiful HTML. Support full-featured syntax。See the [Render Preview](https://md-to-html.deno.dev/preview).
 
+## Usage
+
+```ts
+fetch('https://md-to-html.deno.dev', {
+  method: 'POST',
+  body: '## Hello, World!',
+}).then((res) => res.text());
+```
+
 ## Features
 
 - [GitHub Flavored Markdown](https://github.github.com/gfm/) (GFM) 
