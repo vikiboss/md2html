@@ -136,18 +136,23 @@ Deno.serve({ hostname: 'localhost', port: 3010 }, async (request: Request) => {
     return new Response(null)
   }
 
-  if (url.pathname === '/preview') {
-    return new Response(await md2html(await Deno.readTextFile(path.join(__dirname, './preview.md'))), {
+  const options = {
+    title: url.searchParams.get('title') || '',
+    colorMode: url.searchParams.get('colorMode') as 'auto' | 'light' | 'dark' | undefined,
+    shikiDarkTheme: url.searchParams.get('shikiDarkTheme') || 'one-dark-pro',
+    shikiLightTheme: url.searchParams.get('shikiLightTheme') || 'one-light',
+  }
+
+  console.log('Options:', options)
+
+  async function responseMarkdown(filename: string) {
+    return new Response(await md2html(await Deno.readTextFile(path.join(__dirname, filename)), options), {
       headers: { 'Content-Type': 'text/html' },
     })
   }
 
-  if (!request.body) {
-    return new Response(await md2html(await Deno.readTextFile(path.join(__dirname, './readme.md'))), {
-      headers: { 'Content-Type': 'text/html' },
-    })
-  }
+  if (url.pathname === '/preview') return responseMarkdown('./preview.md')
+  if (!request.body) return responseMarkdown('./README.md')
 
-  const title = new URL(request.url).searchParams.get('title') || ''
-  return new Response(await md2html(await request.text(), { title }), { headers: { 'Content-Type': 'text/html' } })
+  return new Response(await md2html(await request.text(), options), { headers: { 'Content-Type': 'text/html' } })
 })
