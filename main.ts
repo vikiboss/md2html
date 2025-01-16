@@ -45,12 +45,11 @@ async function md2html(
   md: string,
   options: {
     title?: string
-    colorMode?: 'auto' | 'light' | 'dark'
     shikiDarkTheme?: string
     shikiLightTheme?: string
   } = {}
 ): Promise<string> {
-  const { title = '', colorMode = 'auto', shikiDarkTheme = 'one-dark-pro', shikiLightTheme = 'one-light' } = options
+  const { title = '', shikiDarkTheme = 'one-dark-pro', shikiLightTheme = 'one-light' } = options
 
   const enableShiki = md.includes('```')
   const enableKatex = md.includes('$$') || md.includes('\\(') || md.includes('\\[')
@@ -113,7 +112,7 @@ async function md2html(
     <title>${finalTitle}</title>
     <style>
       body { margin: 2rem auto; background-color: var(--color-canvas-default); }
-      main { max-width: 800px; margin: 0 auto; }
+      main { max-width: 800px; margin: 0 auto; padding: 0 1rem; }
       ${globalCSS}
       ${glmCSS}
       ${enableKatex ? katexCSS : ''}
@@ -121,11 +120,7 @@ async function md2html(
       ${enableShiki ? shikiCSS : ''}
     </style>
   </head>
-  <body class="markdown-body">
-    <main data-color-mode="${colorMode}" data-light-theme="light" data-dark-theme="dark">
-      ${mainHTML.toString()}
-    </main>
-  </body>
+  <body class="markdown-body"><main>${mainHTML.toString()}</main></body>
 </html>`
 }
 
@@ -138,12 +133,10 @@ Deno.serve({ hostname: 'localhost', port: 3010 }, async (request: Request) => {
 
   const options = {
     title: url.searchParams.get('title') || '',
-    colorMode: url.searchParams.get('colorMode') as 'auto' | 'light' | 'dark' | undefined,
+    // colorMode: url.searchParams.get('colorMode') as 'auto' | 'light' | 'dark' | undefined,
     shikiDarkTheme: url.searchParams.get('shikiDarkTheme') || 'one-dark-pro',
     shikiLightTheme: url.searchParams.get('shikiLightTheme') || 'one-light',
   }
-
-  console.log('Options:', options)
 
   async function responseMarkdown(filename: string) {
     return new Response(await md2html(await Deno.readTextFile(path.join(__dirname, filename)), options), {
