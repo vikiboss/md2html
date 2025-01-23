@@ -33,7 +33,7 @@ fetch('https://md-to-html.deno.dev', {
   - `\[ ... \]`: display math
   - `$ ... $`: inline math
 - Code Block Powered by [Shiki](https://shiki.style/)  (The Modern Beautiful Syntax Highlighter)
-  - Support [200+](https://shiki.style/languages#bundled-languages) languages & [54+](https://shiki.style/themes) beautiful themes
+  - Support many languages and beautiful themes
   - Useful Notations (available in this service):
     - `transformerNotationDiff()`: like: `+const a = 1`
     - `transformerNotationFocus()`: like: `// [!code focus]`
