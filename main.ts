@@ -74,7 +74,7 @@ const highlighter = await createHighlighterCore({
     ps1: 'powershell',
     文言: 'wenyan',
   },
-  engine: createOnigurumaEngine(),
+  engine: createOnigurumaEngine(import('shiki/wasm')),
 })
 
 const __dirname = import.meta.dirname || '.'
