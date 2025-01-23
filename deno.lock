@@ -2,6 +2,7 @@
   "version": "4",
   "specifiers": {
     "npm:@jsr/oak__oak@^17.1.4": "17.1.4",
+    "npm:@shikijs/rehype@^2.1.0": "2.1.0",
     "npm:@shikijs/transformers@^1.26.1": "1.29.1",
     "npm:@types/node@^22.10.7": "22.10.9",
     "npm:@types/remark-heading-id@1": "1.0.0",
@@ -155,6 +156,17 @@
       "integrity": "sha512-Jn0gS4rPgerMDPj1ydjgFzZr5fAIoMYz4k7ZT3LJxWWBWA6lokK0pumUwVtb+MzXtlpjxOaQejLprmLbvMZyww==",
       "dependencies": [
         "@shikijs/types@2.1.0"
+      ]
+    },
+    "@shikijs/rehype@2.1.0": {
+      "integrity": "sha512-zq8BqSSBE9fygezqJvD0W5psXxstTZmlCqL/897jptUBV2OD3tSFFTzf7I0PvjU3nxO2BTTmaC7Sfww8XlewqA==",
+      "dependencies": [
+        "@shikijs/types@2.1.0",
+        "@types/hast",
+        "hast-util-to-string",
+        "shiki",
+        "unified",
+        "unist-util-visit@5.0.0"
       ]
     },
     "@shikijs/themes@2.1.0": {
@@ -398,6 +410,12 @@
         "space-separated-tokens",
         "web-namespaces",
         "zwitch"
+      ]
+    },
+    "hast-util-to-string@3.0.1": {
+      "integrity": "sha512-XelQVTDWvqcl3axRfI0xSeoVKzyIFPwsAGSLIsKdJKQMXDYJS4WYrBNF/8J7RdhIcFI2BOHgAifggsvsxp/3+A==",
+      "dependencies": [
+        "@types/hast"
       ]
     },
     "hast-util-to-text@4.0.2": {
@@ -1201,6 +1219,7 @@
     "packageJson": {
       "dependencies": [
         "npm:@jsr/oak__oak@^17.1.4",
+        "npm:@shikijs/rehype@^2.1.0",
         "npm:@shikijs/transformers@^1.26.1",
         "npm:@types/node@^22.10.7",
         "npm:@types/remark-heading-id@1",

@@ -5,8 +5,9 @@
     "dev": "deno -A --watch ./main.ts"
   },
   "dependencies": {
-    "@types/node": "^22.10.7",
     "@oak/oak": "npm:@jsr/oak__oak@^17.1.4",
+    "@types/node": "^22.10.7",
+    "@shikijs/rehype": "^2.1.0",
     "@shikijs/transformers": "^1.26.1",
     "@types/remark-heading-id": "^1.0.0",
     "hast-util-from-html-isomorphic": "^2.0.0",
