@@ -9,10 +9,10 @@
   }
 }
 
-pre.shiki code {
+/* pre.shiki code {
   counter-reset: step;
   counter-increment: step 0;
-}
+} */
 
 pre.shiki code .line {
   margin: 0 -24px;

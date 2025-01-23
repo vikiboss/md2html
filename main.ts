@@ -1,64 +1,105 @@
-import * as fs from 'node:fs'
 import * as path from 'node:path'
-import rehypeShiki from '@shikijs/rehype'
-import { remarkAlert } from 'remark-github-blockquote-alert'
-import { unified } from 'unified'
-import rehypeKatex from 'rehype-katex'
 import rehypeRaw from 'rehype-raw'
-import rehypeStringify from 'rehype-stringify'
-import remarkEmoji from 'remark-emoji'
-import remarkFrontmatter from 'remark-frontmatter'
 import remarkGfm from 'remark-gfm'
-import remarkHeadingId from 'remark-heading-id'
 import remarkMath from 'remark-math'
+import { unified } from 'unified'
 import remarkParse from 'remark-parse'
+import remarkEmoji from 'remark-emoji'
+import rehypeKatex from 'rehype-katex'
+import remarkRehype from 'remark-rehype'
+import remarkHeadingId from 'remark-heading-id'
+import rehypeStringify from 'rehype-stringify'
+import { remarkAlert } from 'remark-github-blockquote-alert'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import { fromHtmlIsomorphic } from 'hast-util-from-html-isomorphic'
-import remarkRehype from 'remark-rehype'
+import { createHighlighterCore } from 'shiki'
+import rehypeShikiFromHighlighter from '@shikijs/rehype/core'
+import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
+
 import {
-  transformerNotationDiff,
-  transformerNotationFocus,
-  transformerMetaHighlight,
-  transformerNotationHighlight,
-  transformerMetaWordHighlight,
   transformerCompactLineOptions,
+  transformerMetaHighlight,
+  transformerMetaWordHighlight,
+  transformerNotationDiff,
   transformerNotationErrorLevel,
-  transformerNotationWordHighlight,
+  transformerNotationFocus,
+  transformerNotationHighlight,
 } from '@shikijs/transformers'
 
-const __dirname = import.meta.dirname
-const opts = { encoding: 'utf-8' } as const
-const glmCSS = fs.readFileSync(path.join(__dirname, './css/glm.css'), opts).replace(/[\r\n]+/g, ' ')
-const katexCSS = fs.readFileSync(path.join(__dirname, './css/katex.css'), opts).replace(/[\r\n]+/g, ' ')
-const ghAlertCSS = fs.readFileSync(path.join(__dirname, './css/gh-alert.css'), opts).replace(/[\r\n]+/g, ' ')
-const shikiCSS = fs.readFileSync(path.join(__dirname, './css/shiki.css'), opts).replace(/[\r\n]+/g, ' ')
-const globalCSS = fs.readFileSync(path.join(__dirname, './css/global.css'), opts).replace(/[\r\n]+/g, ' ')
-const linkSvg = fs.readFileSync(path.join(__dirname, './assets/link.svg'), opts)
+import oneLight from 'shiki/themes/one-light.mjs'
+import oneDarkPro from 'shiki/themes/one-dark-pro.mjs'
+import * as langs from './shiki-langs.ts'
 
-console.time('Preheated')
-
-md2html('## Preheated\n\n```js\nconsole.log(123)\n```').then(() => {
-  console.timeEnd('Preheated')
+const highlighter = await createHighlighterCore({
+  themes: [oneLight, oneDarkPro],
+  langs: Object.values(langs),
+  langAlias: {
+    bash: 'shellscript',
+    shell: 'shellscript',
+    sh: 'shellscript',
+    zsh: 'shellscript',
+    rs: 'rust',
+    rb: 'ruby',
+    coffeescript: 'coffee',
+    'c++': 'cpp',
+    gql: 'graphql',
+    js: 'typescript',
+    javascript: 'typescript',
+    jsx: 'tsx',
+    ts: 'typescript',
+    md: 'markdown',
+    mdx: 'markdown',
+    jade: 'html',
+    pug: 'html',
+    regex: 'regexp',
+    lit: 'ts-tags',
+    yml: 'yaml',
+    json: 'jsonc',
+    sass: 'css',
+    scss: 'css',
+    less: 'css',
+    styl: 'css',
+    stylus: 'css',
+    postcss: 'css',
+    batch: 'bat',
+    cs: 'csharp',
+    'c#': 'csharp',
+    kt: 'kotlin',
+    kts: 'kotlin',
+    makefile: 'make',
+    dockerfile: 'docker',
+    objc: 'objective-c',
+    objcpp: 'objective-cpp',
+    ps: 'powershell',
+    ps1: 'powershell',
+    文言: 'wenyan',
+  },
+  engine: createJavaScriptRegexEngine(),
 })
 
-async function md2html(
-  md: string,
-  options: {
-    title?: string
-    shikiDarkTheme?: string
-    shikiLightTheme?: string
-  } = {}
-): Promise<string> {
-  const { title = '', shikiDarkTheme = 'one-dark-pro', shikiLightTheme = 'one-light' } = options
+const __dirname = import.meta.dirname || '.'
+
+const glmCSS = (await Deno.readTextFile(path.join(__dirname, './css/glm.css'))).replace(/[\r\n]+/g, ' ')
+const katexCSS = (await Deno.readTextFile(path.join(__dirname, './css/katex.css'))).replace(/[\r\n]+/g, ' ')
+const shikiCSS = (await Deno.readTextFile(path.join(__dirname, './css/shiki.css'))).replace(/[\r\n]+/g, ' ')
+const globalCSS = (await Deno.readTextFile(path.join(__dirname, './css/global.css'))).replace(/[\r\n]+/g, ' ')
+const linkSvg = await Deno.readTextFile(path.join(__dirname, './assets/link.svg'))
+
+// md2html(await Deno.readTextFile(path.join(__dirname, 'preview.md'))).then(() => {
+//   console.log(process.uptime())
+//   process.exit()
+// })
+
+async function md2html(md: string, options: { title?: string } = {}): Promise<string> {
+  const { title = '' } = options
 
   const enableShiki = md.includes('```')
   const enableKatex = md.includes('$$') || md.includes('\\(') || md.includes('\\[')
-  const enableGhAlert = md.includes('> [!')
   const finalTitle = title || (md.match(/#+\s*(.+)\n?/)?.[1] || 'Readme').replace(/\s*\{#.+\}\s*/g, '').trim()
 
+  console.time('md2html')
   const processor = unified()
     .use(remarkParse)
-    .use(remarkFrontmatter)
     .use(remarkEmoji, {
       accessible: true,
       padSpaceAfter: true,
@@ -67,24 +108,15 @@ async function md2html(
       defaults: true,
       uniqueDefaults: true,
     })
-    .use(remarkAlert, {
-      legacyTitle: true,
-    })
+    .use(remarkAlert, { legacyTitle: true })
     .use(remarkMath)
     .use(remarkGfm)
     .use(remarkRehype, {
       allowDangerousHtml: true,
     })
-    .use(rehypeAutolinkHeadings, {
-      properties: { class: 'anchor' },
-      content: fromHtmlIsomorphic(linkSvg).children as never,
-    })
-    .use(rehypeShiki, {
+    .use(rehypeShikiFromHighlighter, highlighter, {
       defaultColor: 'light',
-      themes: {
-        dark: shikiDarkTheme,
-        light: shikiLightTheme,
-      },
+      themes: { dark: 'one-dark-pro', light: 'one-light' },
       transformers: [
         transformerNotationDiff(), // like: +const a = 1
         transformerNotationFocus(), // like: // [!code focus]
@@ -93,16 +125,19 @@ async function md2html(
         transformerNotationHighlight(), // like: // [!code highlight]
         transformerCompactLineOptions(), // shiki lineOptions
         transformerNotationErrorLevel(), // like: [!code error] & [!code warning]
-        transformerNotationWordHighlight(), // like: // [!code word:Hello]
+        transformerNotationHighlight(), // like: // [!code word:Hello]
       ],
     })
-    .use(rehypeKatex)
-    .use(rehypeRaw, {
-      tagfilter: true,
+    .use(rehypeAutolinkHeadings, {
+      properties: { class: 'anchor' },
+      content: fromHtmlIsomorphic(linkSvg).children as never,
     })
+    .use(rehypeKatex)
+    .use(rehypeRaw, { tagfilter: true })
     .use(rehypeStringify)
 
   const mainHTML = await processor.process(md)
+  console.timeEnd('md2html')
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -113,10 +148,8 @@ async function md2html(
     <style>
       body { margin: 2rem auto; background-color: var(--color-canvas-default); }
       main { max-width: 800px; margin: 0 auto; padding: 0 1rem; }
-      ${globalCSS}
-      ${glmCSS}
+      ${globalCSS} ${glmCSS}
       ${enableKatex ? katexCSS : ''}
-      ${enableGhAlert ? ghAlertCSS : ''}
       ${enableShiki ? shikiCSS : ''}
     </style>
   </head>
@@ -127,24 +160,17 @@ async function md2html(
 Deno.serve({ hostname: 'localhost', port: 3010 }, async (request: Request) => {
   const url = new URL(request.url)
 
-  if (url.pathname === '/favicon.ico') {
-    return new Response(null)
-  }
+  if (url.pathname === '/favicon.ico') fetch('https://avatar.viki.moe')
 
-  const options = {
-    title: url.searchParams.get('title') || '',
-    // colorMode: url.searchParams.get('colorMode') as 'auto' | 'light' | 'dark' | undefined,
-    shikiDarkTheme: url.searchParams.get('shikiDarkTheme') || 'one-dark-pro',
-    shikiLightTheme: url.searchParams.get('shikiLightTheme') || 'one-light',
-  }
+  const options = { title: url.searchParams.get('title') || '' }
 
   async function responseMarkdown(filename: string) {
-    return new Response(await md2html(await Deno.readTextFile(path.join(__dirname, filename)), options), {
-      headers: { 'Content-Type': 'text/html' },
-    })
+    const html = await md2html(await Deno.readTextFile(path.join(__dirname, filename)))
+    return new Response(html, { headers: { 'Content-Type': 'text/html' } })
   }
 
   if (url.pathname === '/preview') return responseMarkdown('./preview.md')
+
   if (!request.body) return responseMarkdown('./readme.md')
 
   return new Response(await md2html(await request.text(), options), { headers: { 'Content-Type': 'text/html' } })

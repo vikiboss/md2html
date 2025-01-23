@@ -102,7 +102,7 @@ export function App() {
 
 ### With Focus
 
-```js
+```jsx
 import { useState } from 'react';
 
 export function App() {
