@@ -14,7 +14,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import { fromHtmlIsomorphic } from 'hast-util-from-html-isomorphic'
 import { createHighlighterCore } from 'shiki'
 import rehypeShikiFromHighlighter from '@shikijs/rehype/core'
-import { createJavaScriptRegexEngine } from 'shiki/engine/javascript'
+import { createOnigurumaEngine } from 'shiki/engine/oniguruma'
 
 import {
   transformerCompactLineOptions,
@@ -74,7 +74,7 @@ const highlighter = await createHighlighterCore({
     ps1: 'powershell',
     文言: 'wenyan',
   },
-  engine: createJavaScriptRegexEngine(),
+  engine: createOnigurumaEngine(),
 })
 
 const __dirname = import.meta.dirname || '.'
