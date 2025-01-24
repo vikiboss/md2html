@@ -3,6 +3,10 @@
   --text-color: #222222;
 }
 
+[id] {
+	scroll-margin-top: 2rem;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --theme-color: #222222;
