@@ -1,11 +1,15 @@
 # md2html
 
-A service that converts Markdown to beautiful HTML. Support full-featured syntax。See the [Render Preview](https://md-to-html.deno.dev/preview).
+A service that converts Markdown to beautiful HTML. Support full-featured syntax.
 
 ## Usage
 
+```bash
+npm install && npm run dev
+```
+
 ```ts
-fetch('https://md-to-html.deno.dev', {
+fetch('https://localhost:3000', {
   method: 'POST',
   body: '## Hello, World!',
 }).then((res) => res.text());
