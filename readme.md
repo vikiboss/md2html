@@ -48,10 +48,6 @@ fetch('https://localhost:3000', {
 - Footnote
   - `[^1]: Footnote Content`
 
-## Render Preview
-
-See the [Render Preview](https://md-to-html.deno.dev/preview).
-
 ## License
 
 [MIT](./LICENSE) License © 2025-PRESENT Viki
