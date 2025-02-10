@@ -2,9 +2,6 @@
 
 A service that converts Markdown to beautiful HTML. Support full-featured syntax。See the [Render Preview](https://md-to-html.deno.dev/preview).
 
-> [!TIP]
-> This service is powered by [Deno](https://deno.land/) & [Deno Deploy](https://deno.com/deploy).
-
 ## Usage
 
 ```ts
@@ -19,7 +16,7 @@ fetch('https://md-to-html.deno.dev', {
 - [GitHub Flavored Markdown](https://github.github.com/gfm/) (GFM) 
   - Emoji Transform: `:smile:` -> 😄
   - Autolink: `https://example.com` -> `<a href="https://example.com">https://example.com</a>`
-  - Code Block: ``` ``` -> code block
+  - Code Block: `  ` -> code block
   - Table: `| header | header |` -> table
   - Task List: `- [x]` -> checked, `- [ ]` -> unchecked
 - [GitHub Styled Alert](https://github.com/orgs/community/discussions/16925)

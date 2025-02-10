@@ -1,16 +1,17 @@
 {
-  "name": "deno-functions",
+  "name": "md2html",
   "type": "module",
+  "packageManager": "pnpm@10.0.0",
   "scripts": {
-    "dev": "deno -A --watch ./main.ts"
+    "dev": "node --no-warnings --experimental-transform-types --watch app.ts"
   },
   "dependencies": {
+    "@koa/bodyparser": "^5.1.1",
     "@oak/oak": "npm:@jsr/oak__oak@^17.1.4",
-    "@types/node": "^22.10.7",
     "@shikijs/rehype": "^2.1.0",
     "@shikijs/transformers": "^1.26.1",
-    "@types/remark-heading-id": "^1.0.0",
     "hast-util-from-html-isomorphic": "^2.0.0",
+    "koa": "^2.15.3",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-katex": "^7.0.1",
     "rehype-raw": "^7.0.0",
@@ -24,5 +25,11 @@
     "remark-rehype": "^11.1.1",
     "shiki": "^2.1.0",
     "unified": "^11.0.5"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.15.0",
+    "@types/node": "^22.10.7",
+    "@types/remark-heading-id": "^1.0.0",
+    "typescript": "^5.7.3"
   }
 }
