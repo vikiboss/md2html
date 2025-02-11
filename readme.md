@@ -5,9 +5,9 @@
 
 A powerful **md2html** (Markdown to HTML) converter service that transforms your Markdown content (GFM) into beautiful, feature-rich HTML. Built with modern technologies and support for advanced syntax features.
 
-## 🚀 Quick Start {#quick-start}
+## 🚀 Quick Start
 
-### Installation {#installation}
+### Installation
 
 ```bash
 # Using npm
@@ -17,7 +17,7 @@ npm install
 npm run dev
 ```
 
-### Basic Usage {#basic-usage}
+### Basic Usage
 
 ```typescript
 // Client-side usage
@@ -32,9 +32,9 @@ const response = await fetch('https://localhost:3000', {
 const html = await response.text();
 ```
 
-## ✨ Features {#features}
+## ✨ Features
 
-### Core Markdown Support {#core-support}
+### Core Markdown Support
 - **Complete [GitHub Flavored Markdown](https://github.github.com/gfm/) (GFM)**
   - Emoji Shortcodes: `:smile:` → 😄
   - Smart Autolinks: URLs automatically convert to clickable links
@@ -44,9 +44,9 @@ const html = await response.text();
   - Strikethrough: `~~text~~`
   - Extended Table Features
 
-### Enhanced Formatting {#enhanced-formatting}
+### Enhanced Formatting
 
-#### GitHub-Style Alerts {#alerts}
+#### GitHub-Style Alerts
 
 > [!NOTE]
 > This is a note
@@ -80,14 +80,14 @@ const html = await response.text();
 > Proceed with caution
 ```
 
-#### Mathematical Expressions (KaTeX) {#math}
+#### Mathematical Expressions (KaTeX)
 
 - Display Math: `$$ ... $$` or `\[ ... \]`
 - Inline Math: `$ ... $`
 - Supports complex mathematical notations and equations
 - Fast rendering with KaTeX
 
-#### Advanced Code Blocks {#code}
+#### Advanced Code Blocks
 
 Powered by [Shiki](https://shiki.style/), featuring:
 
@@ -109,7 +109,7 @@ Advanced notation support:
 - Word highlighting: `/pattern/`
 - Error/Warning levels: `[!code error]`, `[!code warning]`
 
-### Additional Features {#additional-features}
+### Additional Features
 
 - **Heading Anchors**: Automatically generated, hoverable link icons
 - **Footnotes**: Support for reference-style footnotes
@@ -118,6 +118,6 @@ Advanced notation support:
 - **Custom Containers**: For special content blocks
 - **Image Optimization**: Lazy loading and size optimization
 
-## 📄 License {#license}
+## 📄 License
 
 [MIT](./license) License © 2025-PRESENT Viki
