@@ -147,7 +147,13 @@ export async function md2html(md: string, options: Md2htmlOptions = {}): Promise
     <script>
       ${
         color === 'auto'
-          ? `const colorSchema = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';`
+          ? `
+          window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            document.documentElement.classList.remove('dark', 'light');
+            document.documentElement.classList.add(e.matches ? 'dark' : 'light');
+          });
+
+          const colorSchema = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';`
           : color === 'dark'
           ? `const colorSchema = 'dark';`
           : `const colorSchema = 'light';`

@@ -19,7 +19,8 @@ app.use(
 app.use(async ctx => {
   const url = new URL(ctx.url, 'http://localhost')
   const qs = new URLSearchParams(ctx.querystring)
-  const text = url.pathname === '/preview' ? preview : ctx.request.body || readme
+  const text =
+    url.pathname === '/preview' ? preview : ctx.request.body || `${readme}\n\n---\n\n${preview}`
 
   ctx.type = 'text/html'
   ctx.body = await md2html(text, {

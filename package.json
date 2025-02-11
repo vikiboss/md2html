@@ -3,7 +3,8 @@
   "type": "module",
   "packageManager": "pnpm@10.0.0",
   "scripts": {
-    "dev": "node --no-warnings --experimental-transform-types --watch app.ts"
+    "dev": "node --watch --no-warnings --experimental-transform-types app.ts",
+    "start": "node --no-warnings --experimental-transform-types app.ts"
   },
   "dependencies": {
     "@koa/bodyparser": "^5.1.1",

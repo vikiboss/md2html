@@ -117,51 +117,12 @@ export function App() {
 }
 ```
 
-<details>
-  <summary>Show more Shiki cases</summary>
+### Diff Language
 
-### Highlight Lines
-
-```diff {2-3}
-// Meta Mode:
+```diff
 +const a = 1;
 -const b = 2;
 ```
-
-```tsx
-// Comment Mode:
-function App() {
-  return <div>Hello World</div>; // [!code highlight]
-}
-```
-
-### Word Highlight
-
-```tsx /Hello/
-// Meta Mode:
-function App() {
-  return <div>Hello World</div>;
-}
-```
-
-```tsx
-// Comment Mode:
-// [!code word:World]
-function App() {
-  return <div>Hello World</div>;
-}
-```
-
-### Error Level
-
-```tsx
-function App() {
-  const a = 1; // [!code warning]
-  return <div>Hello World</div>; // [!code error]
-}
-```
-
-</details>
 
 ## Limited HTML Tags Support
 

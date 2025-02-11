@@ -1,53 +1,123 @@
 # md2html
 
-A service that converts Markdown to beautiful HTML. Support full-featured syntax.
+> [!NOTE]
+> This project is under active development. Feel free to [open an issue](https://github.com/vikiboss/md2html/issues) for bugs or feature requests.
 
-## Usage
+A powerful **md2html** (Markdown to HTML) converter service that transforms your Markdown content (GFM) into beautiful, feature-rich HTML. Built with modern technologies and support for advanced syntax features.
+
+## 🚀 Quick Start {#quick-start}
+
+### Installation {#installation}
 
 ```bash
-npm install && npm run dev
+# Using npm
+npm install
+
+# Start development server
+npm run dev
 ```
 
-```ts
-fetch('https://localhost:3000', {
+### Basic Usage {#basic-usage}
+
+```typescript
+// Client-side usage
+const response = await fetch('https://localhost:3000', {
   method: 'POST',
-  body: '## Hello, World!',
-}).then((res) => res.text());
+  headers: {
+    'Content-Type': 'text/markdown'
+  },
+  body: '## Hello, World!'
+});
+
+const html = await response.text();
 ```
 
-## Features
+## ✨ Features {#features}
 
-- [GitHub Flavored Markdown](https://github.github.com/gfm/) (GFM) 
-  - Emoji Transform: `:smile:` -> 😄
-  - Autolink: `https://example.com` -> `<a href="https://example.com">https://example.com</a>`
-  - Code Block: `  ` -> code block
-  - Table: `| header | header |` -> table
-  - Task List: `- [x]` -> checked, `- [ ]` -> unchecked
-- [GitHub Styled Alert](https://github.com/orgs/community/discussions/16925)
-  - `> [!INFO]` -> info alert 
-  - `> [!TIP]` -> tip alert
-  - `> [!IMPORTANT]` -> important alert
-  - `> [!WARNING]` -> warning alert
-  - `> [!CAUTION]` -> caution alert
-- [KaTeX](https://katex.org/) (Math expressions)
-  - `$$ ... $$`: display math
-  - `\[ ... \]`: display math
-  - `$ ... $`: inline math
-- Code Block Powered by [Shiki](https://shiki.style/)  (The Modern Beautiful Syntax Highlighter)
-  - Support many languages and beautiful themes
-  - Useful Notations (available in this service):
-    - `transformerNotationDiff()`: like: `+const a = 1`
-    - `transformerNotationFocus()`: like: `// [!code focus]`
-    - `transformerMetaHighlight()`: like: ```js {1,3-5}
-    - `transformerMetaWordHighlight()`: like: ```js /Hello/
-    - `transformerNotationHighlight()`: like: `// [!code highlight]`
-    - `transformerNotationErrorLevel()`: like: `[!code error] & [!code warning]`
-    - `transformerNotationWordHighlight()`: like: `// [!code word:Hello]`
-- Heading Anchor
-  - a link icon on the right of the heading when hover
-- Footnote
-  - `[^1]: Footnote Content`
+### Core Markdown Support {#core-support}
+- **Complete [GitHub Flavored Markdown](https://github.github.com/gfm/) (GFM)**
+  - Emoji Shortcodes: `:smile:` → 😄
+  - Smart Autolinks: URLs automatically convert to clickable links
+  - Syntax-highlighted Code Blocks
+  - Tables with alignment options
+  - Task Lists: `- [x]` (checked) and `- [ ]` (unchecked)
+  - Strikethrough: `~~text~~`
+  - Extended Table Features
 
-## License
+### Enhanced Formatting {#enhanced-formatting}
 
-[MIT](./LICENSE) License © 2025-PRESENT Viki
+#### GitHub-Style Alerts {#alerts}
+
+> [!NOTE]
+> This is a note
+
+> [!TIP]
+> This is a helpful tip
+
+> [!IMPORTANT]
+> Critical information
+
+> [!WARNING]
+> Warning message
+
+> [!CAUTION]
+> Proceed with caution
+
+```markdown
+> [!NOTE]
+> This is a note
+
+> [!TIP]
+> This is a helpful tip
+
+> [!IMPORTANT]
+> Critical information
+
+> [!WARNING]
+> Warning message
+
+> [!CAUTION]
+> Proceed with caution
+```
+
+#### Mathematical Expressions (KaTeX) {#math}
+
+- Display Math: `$$ ... $$` or `\[ ... \]`
+- Inline Math: `$ ... $`
+- Supports complex mathematical notations and equations
+- Fast rendering with KaTeX
+
+#### Advanced Code Blocks {#code}
+
+Powered by [Shiki](https://shiki.style/), featuring:
+
+- Rich syntax highlighting for 100+ languages
+- Multiple beautiful themes
+- Special annotations:
+  
+```typescript
+function hello() {
+  console.log('Hello World!'); // [!code focus]
+}
+```
+  
+Advanced notation support:
+
+- Diff highlighting: `+` for additions, `-` for deletions
+- Line focusing: `// [!code focus]`
+- Line highlighting: `{1,3-5}`
+- Word highlighting: `/pattern/`
+- Error/Warning levels: `[!code error]`, `[!code warning]`
+
+### Additional Features {#additional-features}
+
+- **Heading Anchors**: Automatically generated, hoverable link icons
+- **Footnotes**: Support for reference-style footnotes
+- **Table of Contents**: Auto-generated based on headings
+- **Responsive Design**: Looks great on all devices
+- **Custom Containers**: For special content blocks
+- **Image Optimization**: Lazy loading and size optimization
+
+## 📄 License {#license}
+
+[MIT](./license) License © 2025-PRESENT Viki
