@@ -1,4 +1,4 @@
-# md2html
+# md2html (Markdown (GFM) to HTML API)
 
 > [!NOTE]
 > This project is under active development. Feel free to [open an issue](https://github.com/vikiboss/md2html/issues) for bugs or feature requests.
