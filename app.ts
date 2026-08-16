@@ -7,7 +7,7 @@ import { md2html } from './md2html.ts'
 const readme = fs.readFileSync(path.join(import.meta.dirname, './readme.md'), 'utf8')
 const preview = fs.readFileSync(path.join(import.meta.dirname, './preview.md'), 'utf8')
 
-const app = new Koa()
+export const app = new Koa()
 
 app.use(
   bodyParser({
