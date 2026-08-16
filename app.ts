@@ -1,9 +1,10 @@
+import fs from 'node:fs'
 import Koa from 'koa'
 import { md2html } from './md2html.ts'
 import { bodyParser } from '@koa/bodyparser'
 
-const readme = '# 123'
-const preview = '# 456'
+const readme = fs.readFileSync('./readme.md', 'utf8')
+const preview = fs.readFileSync('./preview.md', 'utf8')
 
 export const app = new Koa()
 

@@ -1,5 +1,4 @@
 import fs from 'node:fs'
-import path from 'node:path'
 
 import { unified } from 'unified'
 import { fromHtmlIsomorphic } from 'hast-util-from-html-isomorphic'
@@ -20,11 +19,11 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 
 import { config } from './config.ts'
 
-const glmCSS = fs.readFileSync(path.join(import.meta.dirname, './css/glm.css'), 'utf8').replace(/[\r\n]/g, '')
-const katexCSS = fs.readFileSync(path.join(import.meta.dirname, './css/katex.css'), 'utf8').replace(/[\r\n]/g, '')
-const globalCSS = fs.readFileSync(path.join(import.meta.dirname, './css/global.css'), 'utf8').replace(/[\r\n]/g, '')
-const shikiCSS = fs.readFileSync(path.join(import.meta.dirname, './css/shiki.css'), 'utf8').replace(/[\r\n]/g, '')
-const linkSvg = fs.readFileSync(path.join(import.meta.dirname, './assets/link.svg'), 'utf8')
+const glmCSS = fs.readFileSync('./css/glm.css', 'utf8').replace(/[\r\n]/g, '')
+const katexCSS = fs.readFileSync('./css/katex.css', 'utf8').replace(/[\r\n]/g, '')
+const globalCSS = fs.readFileSync('./css/global.css', 'utf8').replace(/[\r\n]/g, '')
+const shikiCSS = fs.readFileSync('./css/shiki.css', 'utf8').replace(/[\r\n]/g, '')
+const linkSvg = fs.readFileSync('./assets/link.svg', 'utf8')
 
 interface Md2htmlOptions {
   title?: string
