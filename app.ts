@@ -1,11 +1,9 @@
-import fs from 'node:fs'
 import Koa from 'koa'
-import path from 'node:path'
-import { bodyParser } from '@koa/bodyparser'
 import { md2html } from './md2html.ts'
+import { bodyParser } from '@koa/bodyparser'
 
-const readme = fs.readFileSync(path.join(import.meta.dirname, './readme.md'), 'utf8')
-const preview = fs.readFileSync(path.join(import.meta.dirname, './preview.md'), 'utf8')
+const readme = '# 123'
+const preview = '# 456'
 
 export const app = new Koa()
 
