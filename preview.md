@@ -120,8 +120,8 @@ export function App() {
 ### Diff Language
 
 ```diff
-+const a = 1;
--const b = 2;
++ const a = 1;
+- const b = 2;
 ```
 
 ## Limited HTML Tags Support

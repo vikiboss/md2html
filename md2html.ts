@@ -3,11 +3,6 @@ import path from 'node:path'
 
 import { unified } from 'unified'
 import { fromHtmlIsomorphic } from 'hast-util-from-html-isomorphic'
-import {
-  transformerNotationDiff,
-  transformerNotationFocus,
-  transformerMetaHighlight,
-} from '@shikijs/transformers'
 
 import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
@@ -25,22 +20,10 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 
 import { config } from './config.ts'
 
-const glmCSS = fs
-  .readFileSync(path.join(import.meta.dirname, './css/glm.css'), 'utf8')
-  .replace(/[\r\n]/g, '')
-
-const katexCSS = fs
-  .readFileSync(path.join(import.meta.dirname, './css/katex.css'), 'utf8')
-  .replace(/[\r\n]/g, '')
-
-const globalCSS = fs
-  .readFileSync(path.join(import.meta.dirname, './css/global.css'), 'utf8')
-  .replace(/[\r\n]/g, '')
-
-const shikiCSS = fs
-  .readFileSync(path.join(import.meta.dirname, './css/shiki.css'), 'utf8')
-  .replace(/[\r\n]/g, '')
-
+const glmCSS = fs.readFileSync(path.join(import.meta.dirname, './css/glm.css'), 'utf8').replace(/[\r\n]/g, '')
+const katexCSS = fs.readFileSync(path.join(import.meta.dirname, './css/katex.css'), 'utf8').replace(/[\r\n]/g, '')
+const globalCSS = fs.readFileSync(path.join(import.meta.dirname, './css/global.css'), 'utf8').replace(/[\r\n]/g, '')
+const shikiCSS = fs.readFileSync(path.join(import.meta.dirname, './css/shiki.css'), 'utf8').replace(/[\r\n]/g, '')
 const linkSvg = fs.readFileSync(path.join(import.meta.dirname, './assets/link.svg'), 'utf8')
 
 interface Md2htmlOptions {
@@ -63,9 +46,7 @@ export async function md2html(md: string, options: Md2htmlOptions = {}): Promise
   } = options
 
   const enableKatex = md.includes('$$') || md.includes('\\(') || md.includes('\\[')
-
-  const finalTitle =
-    title || (md.match(/#+\s*(.+)\n?/)?.[1] || 'md2html').replace(/\s*\{#.+\}\s*/g, '').trim()
+  const finalTitle = title || (md.match(/#+\s*(.+)\n?/)?.[1] || 'md2html').replace(/\s*\{#.+\}\s*/g, '').trim()
 
   const processor = unified()
     .use(remarkParse)
@@ -89,11 +70,6 @@ export async function md2html(md: string, options: Md2htmlOptions = {}): Promise
         dark: darkTheme,
         light: lightTheme,
       },
-      transformers: [
-        transformerNotationDiff(), // like: +const a = 1
-        transformerNotationFocus(), // like: // [!code focus]
-        transformerMetaHighlight(), // like: ```js {1,3-5}
-      ],
     })
     .use(rehypeAutolinkHeadings, {
       properties: {
@@ -155,8 +131,8 @@ export async function md2html(md: string, options: Md2htmlOptions = {}): Promise
 
           const colorSchema = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';`
           : color === 'dark'
-          ? `const colorSchema = 'dark';`
-          : `const colorSchema = 'light';`
+            ? `const colorSchema = 'dark';`
+            : `const colorSchema = 'light';`
       }
       document.documentElement.classList.add(colorSchema);
     </script>
