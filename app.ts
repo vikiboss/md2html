@@ -45,7 +45,3 @@ app.listen(port, () => {
     console.log('> Preheat done, server ready, elapsed:', elapsed.toFixed(2), 'ms')
   })
 })
-
-// @ts-ignore
-import { httpServerHandler } from 'cloudflare:node'
-export default httpServerHandler({ port })

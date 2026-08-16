@@ -44,7 +44,7 @@ export async function md2html(md: string, options: Md2htmlOptions = {}): Promise
     defaultColor = config.defaultColor,
   } = options
 
-  const enableKatex = md.includes('$$') || md.includes('\\(') || md.includes('\\[')
+  const enableKaTex = md.includes('$$') || md.includes('\\(') || md.includes('\\[')
   const finalTitle = title || (md.match(/#+\s*(.+)\n?/)?.[1] || 'md2html').replace(/\s*\{#.+\}\s*/g, '').trim()
 
   const processor = unified()
@@ -93,7 +93,7 @@ export async function md2html(md: string, options: Md2htmlOptions = {}): Promise
       main { max-width: 800px; margin: 0 auto; padding: 1rem; }
       ${globalCSS}
       ${glmCSS}
-      ${enableKatex ? katexCSS : ''}
+      ${enableKaTex ? katexCSS : ''}
       ${shikiCSS}
       ${
         lineNumbers
